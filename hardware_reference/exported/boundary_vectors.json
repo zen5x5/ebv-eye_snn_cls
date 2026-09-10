@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "lif": [
+    {
+      "name": "zero",
+      "input": {
+        "syn_sum": 0,
+        "old_v_mem": 0,
+        "threshold": 5,
+        "min_v_mem": -5
+      },
+      "expected": {
+        "v_pre": 0,
+        "spike": 0,
+        "v_post": 0,
+        "spike_saturated": 0
+      }
+    },
+    {
+      "name": "plus_one",
+      "input": {
+        "syn_sum": 1,
+        "old_v_mem": 0,
+        "threshold": 5,
+        "min_v_mem": -5
+      },
+      "expected": {
+        "v_pre": 1,
+        "spike": 0,
+        "v_post": 1,
+        "spike_saturated": 0
+      }
+    },
+    {
+      "name": "minus_one",
+      "input": {
+        "syn_sum": -1,
+        "old_v_mem": 0,
+        "threshold": 5,
+        "min_v_mem": -5
+      },
+      "expected": {
+        "v_pre": -1,
+        "spike": 0,
+        "v_post": -1,
+        "spike_saturated": 0
+      }
+    },
+    {
+      "name": "threshold_equal",
+      "input": {
+        "syn_sum": 5,
+        "old_v_mem": 0,
+        "threshold": 5,
+        "min_v_mem": -5
+      },
+      "expected": {
+        "v_pre": 5,
+        "spike": 1,
+        "v_post": 0,
+        "spike_saturated": 0
+      }
+    },
+    {
+      "name": "subtractive_multispike",
+      "input": {
+        "syn_sum": 12,
+        "old_v_mem": 0,
+        "threshold": 5,
+        "min_v_mem": -5
+      },
+      "expected": {
+        "v_pre": 12,
+        "spike": 2,
+        "v_post": 2,
+        "spike_saturated": 0
+      }
+    },
+    {
+      "name": "negative_clamp",
+      "input": {
+        "syn_sum": -20,
+        "old_v_mem": 1,
+        "threshold": 5,
+        "min_v_mem": -5
+      },
+      "expected": {
+        "v_pre": -19,
+        "spike": 0,
+        "v_post": -5,
+        "spike_saturated": 0
+      }
+    },
+    {
+      "name": "maximum_state",
+      "input": {
+        "syn_sum": 32767,
+        "old_v_mem": 32767,
+        "threshold": 1,
+        "min_v_mem": -1
+      },
+      "expected": {
+        "v_pre": 65534,
+        "spike": 65534,
+        "v_post": 0,
+        "spike_saturated": 0
+      }
+    },
+    {
+      "name": "spike_saturation_full_reset",
+      "input": {
+        "syn_sum": 131071,
+        "old_v_mem": 0,
+        "threshold": 1,
+        "min_v_mem": -1
+      },
+      "expected": {
+        "v_pre": 131071,
+        "spike": 65535,
+        "v_post": 0,
+        "spike_saturated": 1
+      }
+    }
+  ],
+  "mac": [
+    {
+      "name": "zeros",
+      "accumulator": 0,
+      "activation": 0,
+      "weight": 0,
+      "expected": 0
+    },
+    {
+      "name": "positive_one",
+      "accumulator": 0,
+      "activation": 1,
+      "weight": 1,
+      "expected": 1
+    },
+    {
+      "name": "negative_weight",
+      "accumulator": 7,
+      "activation": 1,
+      "weight": -1,
+      "expected": 6
+    },
+    {
+      "name": "largest_positive_product",
+      "accumulator": 0,
+      "activation": 65535,
+      "weight": 32767,
+      "expected": 2147385345
+    },
+    {
+      "name": "most_negative_product",
+      "accumulator": 0,
+      "activation": 65535,
+      "weight": -32768,
+      "expected": -2147450880
+    }
+  ],
+  "negative_right_shift": {
+    "applicable": false,
+    "reason": "the frozen per-layer integer contract performs no rescale or right shift"
+  }
+}

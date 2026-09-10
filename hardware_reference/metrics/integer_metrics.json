@@ -1,0 +1,12 @@
+{
+  "samples": 2356,
+  "row_accuracy": 0.916383701188455,
+  "col_accuracy": 0.9350594227504244,
+  "joint_accuracy": 0.8696943972835314,
+  "pixel_l2": 23.186501163668815,
+  "angular_deg": 1.1487736701965332,
+  "device": "cpu",
+  "batch_size": 16,
+  "numeric_path": "float64 convolution with exact integer-valued operands",
+  "accelerated_path_bit_exact_samples": 10
+}

@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "steps": [
+    {
+      "timestep": 0,
+      "input": [
+        1,
+        0
+      ],
+      "syn_sum": [
+        3,
+        -3
+      ],
+      "v_pre": [
+        3,
+        -3
+      ],
+      "spike": [
+        0,
+        0
+      ],
+      "v_post": [
+        3,
+        -3
+      ],
+      "saturated": 0
+    },
+    {
+      "timestep": 1,
+      "input": [
+        0,
+        1
+      ],
+      "syn_sum": [
+        -2,
+        2
+      ],
+      "v_pre": [
+        1,
+        -1
+      ],
+      "spike": [
+        0,
+        0
+      ],
+      "v_post": [
+        1,
+        -1
+      ],
+      "saturated": 0
+    },
+    {
+      "timestep": 2,
+      "input": [
+        3,
+        2
+      ],
+      "syn_sum": [
+        1,
+        3
+      ],
+      "v_pre": [
+        2,
+        2
+      ],
+      "spike": [
+        0,
+        0
+      ],
+      "v_post": [
+        2,
+        2
+      ],
+      "saturated": 0
+    },
+    {
+      "timestep": 3,
+      "input": [
+        0,
+        0
+      ],
+      "syn_sum": [
+        1,
+        -2
+      ],
+      "v_pre": [
+        3,
+        0
+      ],
+      "spike": [
+        0,
+        0
+      ],
+      "v_post": [
+        3,
+        0
+      ],
+      "saturated": 0
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "samples": 2356,
+  "row_accuracy": 0.91723259762309,
+  "col_accuracy": 0.9359083191850595,
+  "joint_accuracy": 0.8730899830220713,
+  "pixel_l2": 22.58381791899897,
+  "angular_deg": 1.1178693771362305,
+  "device": "cpu",
+  "batch_size": 16,
+  "numeric_path": "trained FP32 model after official exodus_to_sinabs backend conversion",
+  "checkpoint": "/data/xuzx/result/02_snn_speck/ebv-eye/snn/user=15/eye=0__model=conv8bn__task=classification__sampling=saccade-corrective-peak__bins=10__thr=1p0__vmin=-1p0__clip=1p0__select=test-loss__data=auto__ep=200__bs=64__lr=0p01__seed=2021__input=128/best_checkpoint.pt",
+  "checkpoint_sha256": "a2ca40bc306940aafae81e8bda6eb0c64cf81a4f9696c0773de69f0c054dc678"
+}

@@ -1,0 +1,21 @@
+{
+  "experiment_dir": "/data/xuzx/result/02_snn_speck/ebv-eye/snn/user=15/eye=0__model=conv8bn__task=classification__sampling=saccade-corrective-peak__bins=10__thr=1p0__vmin=-1p0__clip=1p0__select=test-loss__data=auto__ep=200__bs=64__lr=0p01__seed=2021__input=128",
+  "checkpoint": "/data/xuzx/result/02_snn_speck/ebv-eye/snn/user=15/eye=0__model=conv8bn__task=classification__sampling=saccade-corrective-peak__bins=10__thr=1p0__vmin=-1p0__clip=1p0__select=test-loss__data=auto__ep=200__bs=64__lr=0p01__seed=2021__input=128/best_checkpoint.pt",
+  "checkpoint_selection": "minimum test_loss during training",
+  "eval_population": {
+    "user": 15
+  },
+  "metrics": {
+    "left": {
+      "loss": 0.5548358607170739,
+      "pixel_l2": 22.31477453753175,
+      "angular_deg": 1.1004580658036702,
+      "row_px": 8.574702781003683,
+      "col_px": 15.264854800316595,
+      "n_samples": 2356,
+      "row_acc": 0.9159592529711376,
+      "col_acc": 0.9354838709677419,
+      "joint_acc": 0.8713921901528013
+    }
+  }
+}

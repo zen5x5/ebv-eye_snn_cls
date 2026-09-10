@@ -1,0 +1,94 @@
+schema_version: 1
+model:
+  name: SpikingNet8LayerBN
+  task: classification
+  user: 15
+  eye: 0
+  sampling: corrective_peak
+  timesteps: 10
+  input_shape_chw: [2, 128, 128]
+  output_channels: 22
+  checkpoint: /data/xuzx/result/02_snn_speck/ebv-eye/snn/user=15/eye=0__model=conv8bn__task=classification__sampling=saccade-corrective-peak__bins=10__thr=1p0__vmin=-1p0__clip=1p0__select=test-loss__data=auto__ep=200__bs=64__lr=0p01__seed=2021__input=128/best_checkpoint.pt
+  checkpoint_sha256: a2ca40bc306940aafae81e8bda6eb0c64cf81a4f9696c0773de69f0c054dc678
+
+layout:
+  external_stream: timestep_channel_row_column
+  external_word_order: "timestep outermost; then channel, row, column; column changes fastest"
+  weight_order: "output_channel, input_channel, kernel_row, kernel_column; kernel_column changes fastest"
+  activation_order: "channel, row, column; column changes fastest"
+  output_order: [row_class, column_class]
+
+quantization:
+  policy: per_layer_common_scale
+  description: "After BatchNorm folding, each layer shares one scale across weight, folded bias, threshold, and min_v_mem. Spikes are dimensionless counts."
+  scale_choice: "minimum of Sinabs determine_discretization_scale(weight,16), bias, and [min_v_mem,threshold]"
+  rounding: nearest_ties_to_even
+  weight:
+    bits: 16
+    signed: true
+    encoding: twos_complement
+  bias:
+    bits: 16
+    signed: true
+    encoding: twos_complement
+  threshold:
+    bits: 16
+    signed: true
+    requirement: positive
+  activation_and_spike_count:
+    bits: 16
+    signed: false
+    saturation: [0, 65535]
+  membrane_state:
+    bits: 16
+    signed: true
+    justification: "After subtractive reset and lower clamp, v_post is in [min_v_mem, threshold-1]."
+  product:
+    mathematical_width_bits: 33
+    operation: signed_weight_times_unsigned_activation
+  synapse_accumulator_and_v_pre:
+    bits: 48
+    signed: true
+    overflow: forbidden_for_legal_operands
+    proof_bound: "576 * 32768 * 65535 < 2^41; 48 signed bits also cover bias and prior v_mem."
+  output_class_count:
+    bits: 32
+    signed: false
+
+neuron_update:
+  leak_or_beta: none
+  order:
+    - "syn_sum = folded_bias + sum(weight * activation)"
+    - "v_pre = v_mem_previous + syn_sum"
+    - "spike_full = floor(v_pre / threshold) when v_pre > 0, otherwise 0"
+    - "v_reset = v_pre - spike_full * threshold"
+    - "v_post = max(v_reset, min_v_mem)"
+    - "spike = saturate(spike_full, 0, 65535)"
+  threshold_comparison: greater_than_or_equal
+  reset: subtractive
+  state_reset_between_samples: zero
+  negative_right_shift: not_used
+
+pooling:
+  type: sum_pool_2x2
+  order: after_neuron_update
+  saturation: [0, 65535]
+
+decoder:
+  accumulation: "sum the 22 head spike counts over all 10 timesteps"
+  row_class: "argmax channels 0..10"
+  column_class: "argmax channels 11..21"
+  tie_break: lowest_class_index
+
+rtl:
+  reset: synchronous_active_high
+  input_backpressure: in_valid_and_in_ready
+  output_backpressure: out_valid_and_out_ready
+  weights_reset: false
+  state_clear: sequential_between_samples
+  memory_initialization: readmemh
+  parameter_files:
+    weights: generated/weights.mem
+    biases: generated/biases.mem
+    thresholds: generated/thresholds.mem
+    min_v_mem: generated/min_v_mem.mem

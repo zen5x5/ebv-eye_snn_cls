@@ -1,0 +1,415 @@
+{
+  "schema_version": 1,
+  "model": "SpikingNet8LayerBN classification",
+  "checkpoint": "/data/xuzx/result/02_snn_speck/ebv-eye/snn/user=15/eye=0__model=conv8bn__task=classification__sampling=saccade-corrective-peak__bins=10__thr=1p0__vmin=-1p0__clip=1p0__select=test-loss__data=auto__ep=200__bs=64__lr=0p01__seed=2021__input=128/best_checkpoint.pt",
+  "checkpoint_sha256": "a2ca40bc306940aafae81e8bda6eb0c64cf81a4f9696c0773de69f0c054dc678",
+  "quantization": {
+    "weight_bits": 16,
+    "bias_bits": 16,
+    "threshold_bits": 16,
+    "state_bits": 16,
+    "activation_bits": 16,
+    "accumulator_bits": 48,
+    "rounding": "nearest, ties to even (numpy.rint / torch.round)",
+    "per_layer_common_scale": true
+  },
+  "totals": {
+    "weights": 127760,
+    "biases": 302,
+    "neuron_states": 103958,
+    "maximum_activation_words": 32768
+  },
+  "layers": [
+    {
+      "index": 0,
+      "name": "block1",
+      "input_shape_chw": [
+        2,
+        128,
+        128
+      ],
+      "convolution_output_shape_chw": [
+        8,
+        64,
+        64
+      ],
+      "output_activation_shape_chw": [
+        8,
+        64,
+        64
+      ],
+      "kernel": 3,
+      "stride": 2,
+      "padding": 1,
+      "sum_pool": 1,
+      "weight_layout": "OC,IC,KY,KX; KX changes fastest",
+      "activation_layout": "C,Y,X; X changes fastest",
+      "weight_offset": 0,
+      "weight_count": 144,
+      "bias_offset": 0,
+      "bias_count": 8,
+      "state_offset": 0,
+      "state_count": 32768,
+      "scale": 408.1097717285156,
+      "scale_binding": "weight",
+      "threshold": 408,
+      "min_v_mem": -408,
+      "weight_range": [
+        -11348,
+        32767
+      ],
+      "bias_range": [
+        -57,
+        30
+      ]
+    },
+    {
+      "index": 1,
+      "name": "block2",
+      "input_shape_chw": [
+        8,
+        64,
+        64
+      ],
+      "convolution_output_shape_chw": [
+        16,
+        32,
+        32
+      ],
+      "output_activation_shape_chw": [
+        16,
+        32,
+        32
+      ],
+      "kernel": 3,
+      "stride": 2,
+      "padding": 1,
+      "sum_pool": 1,
+      "weight_layout": "OC,IC,KY,KX; KX changes fastest",
+      "activation_layout": "C,Y,X; X changes fastest",
+      "weight_offset": 144,
+      "weight_count": 1152,
+      "bias_offset": 8,
+      "bias_count": 16,
+      "state_offset": 32768,
+      "state_count": 16384,
+      "scale": 32767.0,
+      "scale_binding": "threshold",
+      "threshold": 32767,
+      "min_v_mem": -32767,
+      "weight_range": [
+        -6541,
+        7245
+      ],
+      "bias_range": [
+        -3381,
+        21871
+      ]
+    },
+    {
+      "index": 2,
+      "name": "block3",
+      "input_shape_chw": [
+        16,
+        32,
+        32
+      ],
+      "convolution_output_shape_chw": [
+        32,
+        32,
+        32
+      ],
+      "output_activation_shape_chw": [
+        32,
+        16,
+        16
+      ],
+      "kernel": 3,
+      "stride": 1,
+      "padding": 1,
+      "sum_pool": 2,
+      "weight_layout": "OC,IC,KY,KX; KX changes fastest",
+      "activation_layout": "C,Y,X; X changes fastest",
+      "weight_offset": 1296,
+      "weight_count": 4608,
+      "bias_offset": 24,
+      "bias_count": 32,
+      "state_offset": 49152,
+      "state_count": 32768,
+      "scale": 10856.8525390625,
+      "scale_binding": "bias",
+      "threshold": 10857,
+      "min_v_mem": -10857,
+      "weight_range": [
+        -504,
+        499
+      ],
+      "bias_range": [
+        -10158,
+        32767
+      ]
+    },
+    {
+      "index": 3,
+      "name": "block4",
+      "input_shape_chw": [
+        32,
+        16,
+        16
+      ],
+      "convolution_output_shape_chw": [
+        64,
+        16,
+        16
+      ],
+      "output_activation_shape_chw": [
+        64,
+        8,
+        8
+      ],
+      "kernel": 3,
+      "stride": 1,
+      "padding": 1,
+      "sum_pool": 2,
+      "weight_layout": "OC,IC,KY,KX; KX changes fastest",
+      "activation_layout": "C,Y,X; X changes fastest",
+      "weight_offset": 5904,
+      "weight_count": 18432,
+      "bias_offset": 56,
+      "bias_count": 64,
+      "state_offset": 81920,
+      "state_count": 16384,
+      "scale": 6413.09814453125,
+      "scale_binding": "bias",
+      "threshold": 6413,
+      "min_v_mem": -6413,
+      "weight_range": [
+        -460,
+        441
+      ],
+      "bias_range": [
+        -23033,
+        32767
+      ]
+    },
+    {
+      "index": 4,
+      "name": "block5",
+      "input_shape_chw": [
+        64,
+        8,
+        8
+      ],
+      "convolution_output_shape_chw": [
+        64,
+        8,
+        8
+      ],
+      "output_activation_shape_chw": [
+        64,
+        4,
+        4
+      ],
+      "kernel": 3,
+      "stride": 1,
+      "padding": 1,
+      "sum_pool": 2,
+      "weight_layout": "OC,IC,KY,KX; KX changes fastest",
+      "activation_layout": "C,Y,X; X changes fastest",
+      "weight_offset": 24336,
+      "weight_count": 36864,
+      "bias_offset": 120,
+      "bias_count": 64,
+      "state_offset": 98304,
+      "state_count": 4096,
+      "scale": 17141.611328125,
+      "scale_binding": "bias",
+      "threshold": 17142,
+      "min_v_mem": -17142,
+      "weight_range": [
+        -918,
+        914
+      ],
+      "bias_range": [
+        -30176,
+        32767
+      ]
+    },
+    {
+      "index": 5,
+      "name": "block6",
+      "input_shape_chw": [
+        64,
+        4,
+        4
+      ],
+      "convolution_output_shape_chw": [
+        64,
+        4,
+        4
+      ],
+      "output_activation_shape_chw": [
+        64,
+        4,
+        4
+      ],
+      "kernel": 3,
+      "stride": 1,
+      "padding": 1,
+      "sum_pool": 1,
+      "weight_layout": "OC,IC,KY,KX; KX changes fastest",
+      "activation_layout": "C,Y,X; X changes fastest",
+      "weight_offset": 61200,
+      "weight_count": 36864,
+      "bias_offset": 184,
+      "bias_count": 64,
+      "state_offset": 102400,
+      "state_count": 1024,
+      "scale": 21993.12109375,
+      "scale_binding": "bias",
+      "threshold": 21993,
+      "min_v_mem": -21993,
+      "weight_range": [
+        -2173,
+        2146
+      ],
+      "bias_range": [
+        -32768,
+        22391
+      ]
+    },
+    {
+      "index": 6,
+      "name": "block7",
+      "input_shape_chw": [
+        64,
+        4,
+        4
+      ],
+      "convolution_output_shape_chw": [
+        32,
+        4,
+        4
+      ],
+      "output_activation_shape_chw": [
+        32,
+        4,
+        4
+      ],
+      "kernel": 3,
+      "stride": 1,
+      "padding": 1,
+      "sum_pool": 1,
+      "weight_layout": "OC,IC,KY,KX; KX changes fastest",
+      "activation_layout": "C,Y,X; X changes fastest",
+      "weight_offset": 98064,
+      "weight_count": 18432,
+      "bias_offset": 248,
+      "bias_count": 32,
+      "state_offset": 103424,
+      "state_count": 512,
+      "scale": 32767.0,
+      "scale_binding": "threshold",
+      "threshold": 32767,
+      "min_v_mem": -32767,
+      "weight_range": [
+        -7331,
+        7295
+      ],
+      "bias_range": [
+        -30192,
+        31218
+      ]
+    },
+    {
+      "index": 7,
+      "name": "head",
+      "input_shape_chw": [
+        32,
+        4,
+        4
+      ],
+      "convolution_output_shape_chw": [
+        22,
+        1,
+        1
+      ],
+      "output_activation_shape_chw": [
+        22,
+        1,
+        1
+      ],
+      "kernel": 4,
+      "stride": 1,
+      "padding": 0,
+      "sum_pool": 1,
+      "weight_layout": "OC,IC,KY,KX; KX changes fastest",
+      "activation_layout": "C,Y,X; X changes fastest",
+      "weight_offset": 116496,
+      "weight_count": 11264,
+      "bias_offset": 280,
+      "bias_count": 22,
+      "state_offset": 103936,
+      "state_count": 22,
+      "scale": 16835.126953125,
+      "scale_binding": "bias",
+      "threshold": 16835,
+      "min_v_mem": -16835,
+      "weight_range": [
+        -4081,
+        4105
+      ],
+      "bias_range": [
+        -18285,
+        32767
+      ]
+    }
+  ],
+  "files": [
+    {
+      "path": "weights.mem",
+      "bytes": 638800,
+      "sha256": "be2021141093e658e0180ef05000893268f55e8fb797972d738ffeb75311855d"
+    },
+    {
+      "path": "biases.mem",
+      "bytes": 1510,
+      "sha256": "0c0990824258787986592372bd942a467889a6a6f585fbced8cba53034662ee5"
+    },
+    {
+      "path": "thresholds.mem",
+      "bytes": 40,
+      "sha256": "1488fbb0bed4797756936c125a366e52f2dbcf14ce779a9abd7bd674aa8c345c"
+    },
+    {
+      "path": "min_v_mem.mem",
+      "bytes": 40,
+      "sha256": "5c1aa298f3ee9816a3be765bbcfa205b67225cfb7aa5de4a09a520cace71a892"
+    },
+    {
+      "path": "parameters.npz",
+      "bytes": 208787,
+      "sha256": "4bb23ac3b56dd6415540f70e07abe73ee52f83a4907659c1e915051b87a53366"
+    },
+    {
+      "path": "tiny_network_trace.json",
+      "bytes": 1222,
+      "sha256": "94a0eca40b4d871563f376793f66e13692e4277a61c139624fc26bbc3acf3350"
+    },
+    {
+      "path": "boundary_vectors.json",
+      "bytes": 3206,
+      "sha256": "d1f86fc513edfda03b8b4c4c62db4fc65a37155c737f07b558b6c344beacd2d5"
+    },
+    {
+      "path": "real_vectors.npz",
+      "bytes": 1110380,
+      "sha256": "63692cbe6988d8aff2abacfad5c39f469fca32ad8f8af984638b16b3514be15c"
+    },
+    {
+      "path": "real_trace_manifest.json",
+      "bytes": 26978,
+      "sha256": "1e94c9446babae8dce756da1d6d66fb7feab2a27e0146b4d8eacfb1f79df7651"
+    }
+  ]
+}
